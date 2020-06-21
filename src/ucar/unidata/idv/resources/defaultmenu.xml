@@ -2,8 +2,7 @@
 <menubar label="Commands">
 
 
-  <menu
-     label="File"
+  <!--  label="File"
      id="file"
      mnemonic="F">
 
@@ -41,7 +40,7 @@
        action="action:bundle.favorite.save"
        mnemonic="F"/>
     <separator/>
-<!--
+
     <menu
        label="Cache"
        id="file.cache"
@@ -56,23 +55,22 @@
         />
     </menu>
     <separator/>
--->
+
     <menu label="Publish" id="publish"
        icon="/auxdata/ui/icons/newspaper.png">
     </menu>
 
-<!--
+
     <menuitem
        label="Capture All Displays..."
        action="action:capture.all"/>
- -->
-<!--
+
     <menuitem
        label="Event Capture"
        action="action:collab.showcapture"
        mnemonic="E"/>
     <separator/>
--->
+
     <menu
        label="Default Bundle"
        mnemonic="D">
@@ -99,8 +97,8 @@
        label="Exit"
        action="action:exit"
        mnemonic="X"/>
-  </menu>
-  <menu
+  </menu-->
+  <!--menu
      id="edit"
      label="Edit"
      mnemonic="E">
@@ -113,9 +111,9 @@
        action="action:edit.removedisplaysanddata"
        mnemonic="A"/>
     <separator/>
-<!--
+
              <menu label="File history" id="menu.deletehistory" />
- -->
+
     <menu label="Formulas">
       <menuitem
          label="Create Formula"
@@ -140,9 +138,9 @@
       <menu label="Edit Formulas" id="edit.formulas"/>
     </menu>
 
-<!--
+
                <menuitem label="Auto-create Displays"  action="action:edit.autodisplays" mnemonic="A"/>
--->
+
 
     <separator/>
     <menuitem
@@ -155,7 +153,7 @@
        action="action:edit.preferences"
        tooltip="Configure User Preferences"
        mnemonic="U"/>
-  </menu>
+  </menu> -->
 
 
 
@@ -172,12 +170,12 @@
 -->
 
 
-  <menu
+  <!--<menu
      id="displays"
      label="Displays"
-     mnemonic="D"></menu>
+     mnemonic="D"></menu>-->
 
-  <menu
+  <!--<menu
      id="data"
      label="Data"
      mnemonic="A">
@@ -189,13 +187,14 @@
        label="Special"
        id="data.special"/>
     <separator/>
-  </menu>
+  </menu>-->
     <menu
     id="bundles"
     label="Bundles"
     mnemonic="B">
     </menu>
-  <menu
+
+    <!--<menu
      label="Tools"
      id="menu.tools"
      mnemonic="T">
@@ -241,13 +240,13 @@
          label="Resource Viewer"
          tooltip="View all resource"
          action="action:edit.resources"/>
-   </menu>
-    <menu
+   </menu> -->
+    <!--<menu
         id="menu.history.file"
         label="History"
         mnemonic="O">
-    </menu>
-  <menu
+    </menu> -->
+ <!-- <menu
      id="help"
      label="Help"
      mnemonic="H">
@@ -280,7 +279,7 @@
        action="action:help.showsupportform"
        mnemonic="F"/>
      <separator/>
-<!--
+
      <menu label="Install">
      <menuitem
        label="Check for Updates"
@@ -293,7 +292,7 @@
 
 
      <separator/>
--->
+
      <menuitem
        label="Release Notes"
        icon="/auxdata/ui/icons/note.png"
@@ -306,6 +305,6 @@
        label="About..."
        action="action:help.showabout"
        mnemonic="A"/>
-</menu>
+</menu> -->
 
 </menubar>

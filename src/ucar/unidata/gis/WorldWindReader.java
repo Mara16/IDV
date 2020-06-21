@@ -234,8 +234,8 @@ public class WorldWindReader {
                 lats[i] = bdis.readFloat();
                 lons[i] = bdis.readFloat();
             } else {
-                lats[i] = bdis.readLEDouble();
-                lons[i] = bdis.readLEDouble();
+                lats[i] = (float)bdis.readLEDouble();
+                lons[i] = (float)bdis.readLEDouble();
             }
             int numEntries = bdis.readLEInt();
             for (int entryIdx = 0; entryIdx < numEntries; entryIdx++) {

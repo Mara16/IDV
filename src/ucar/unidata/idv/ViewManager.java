@@ -3911,7 +3911,7 @@ public class ViewManager extends SharableImpl implements ActionListener,
      * @return Should show side legend
      */
     public boolean getShowSideLegend() {
-        return getStore().get(PREF_SHOWSIDELEGEND, true);
+        return false; //getStore().get(PREF_SHOWSIDELEGEND, true);
     }
 
     /**

@@ -1834,8 +1834,8 @@ public class MapViewManager extends NavigatedViewManager {
      */
     public ArrayList doMakeMenuList() {
         ArrayList menus = super.doMakeMenuList();
-        menus.add(makeViewMenu());
-        menus.add(makeProjectionMenu());
+       // menus.add(makeViewMenu());
+       // menus.add(makeProjectionMenu());
         return menus;
     }
 

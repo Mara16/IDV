@@ -2911,7 +2911,7 @@ public class IdvUIManager extends IdvManager {
         JMenuItem mi;
         JMenu     mapMenu;
         if (makeNew) {
-            mapMenu = new JMenu("Maps and Backgrounds");
+            mapMenu = new JMenu("We just changed this yo");
             GuiUtils.setIcon(mapMenu, "/auxdata/ui/icons/map.png");
             displayMenu.add(mapMenu);
         } else {
@@ -2921,7 +2921,7 @@ public class IdvUIManager extends IdvManager {
         List maps = getResourceManager().getMaps();
 
 
-        mi = new JMenuItem("Add Your Own Map...");
+        mi = new JMenuItem("Mara was here");
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 addMap(null);
@@ -2951,7 +2951,7 @@ public class IdvUIManager extends IdvManager {
             systemMenu.add(mi);
         }
 
-        GuiUtils.limitMenuSize(systemMenu, "Maps ", 20);
+        GuiUtils.limitMenuSize(systemMenu, "Maps ", 200);
 
         mi = new JMenuItem("Add Background Image");
         mi.addActionListener(new ActionListener() {
