@@ -430,7 +430,7 @@ public abstract class NavigatedViewManager extends ViewManager {
      * Initialize the toolbars for the GUI
      */
     protected void initToolBars() {
-        addToolBar(doMakeZoomPanToolBar(JToolBar.VERTICAL), "zoompan",
+        addToolBar(doMakeZoomPanToolBar(JToolBar.HORIZONTAL), "zoompan",
                    "Zoom/Pan toolbar");
 
         JComponent backButton    = getCommandManager().getBackButton();
@@ -441,13 +441,13 @@ public abstract class NavigatedViewManager extends ViewManager {
         forwardButton.setToolTipText(
             "<html>Redo the viewpoint/projection change<br>Shift-click to go 10 steps forward</html>");
 
-        JToolBar undoToolbar = new JToolBar(JToolBar.VERTICAL);
+        JToolBar undoToolbar = new JToolBar(JToolBar.HORIZONTAL);
 
         undoToolbar.setFloatable(getToolbarsFloatable());
         undoToolbar.add(backButton);
         undoToolbar.add(forwardButton);
-        addToolBar(GuiUtils.top(undoToolbar), "undoredo",
-                   "Undo/Redo toolbar");
+        //addToolBar(GuiUtils.top(undoToolbar), "undoredo",
+          //         "Undo/Redo toolbar");
 
         // JPanel undoPanel = GuiUtils.inset(GuiUtils.vbox(backButton,
         // forwardButton), new Insets(10, 0, 0, 0));

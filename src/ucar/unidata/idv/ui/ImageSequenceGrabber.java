@@ -1010,7 +1010,7 @@ public class ImageSequenceGrabber implements Runnable, ActionListener {
                     + "StepForward16.gif"), CMD_PREVIEW_NEXT,
                                             "Go to next frame");
             prevButton = makeButton(GuiUtils.getImageIcon(imgp
-                    + "StepBack16.gif"), CMD_PREVIEW_PREV,
+                    + "StepBack.png"), CMD_PREVIEW_PREV,
                                          "Go to previous frame");
             deleteFrameButton = makeButton("Delete this frame",
                                            CMD_PREVIEW_DELETE);

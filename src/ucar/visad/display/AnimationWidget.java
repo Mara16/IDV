@@ -400,7 +400,7 @@ public class AnimationWidget extends SharableImpl implements ActionListener {
         }
         return "/auxdata/ui/icons/" + name + (bigIcon
                 ? "24"
-                : "16") + ".gif";
+                : "16") + ".png";
     }
 
 
@@ -472,8 +472,8 @@ public class AnimationWidget extends SharableImpl implements ActionListener {
             { "One frame back", CMD_BACKWARD, getIcon("StepBack") },
             { "Run/Stop", CMD_STARTSTOP, getIcon("Play") },
             { "One frame forward", CMD_FORWARD, getIcon("StepForward") },
-            { "Go to last frame", CMD_END, getIcon("FastForward") },
-            { "Properties", CMD_PROPS, getIcon("Information") }
+            { "Go to last frame", CMD_END, getIcon("FastForward") }
+            //{ "Properties", CMD_PROPS, getIcon("Information") }
         };
 
         for (int i = 0; i < buttonInfo.length; i++) {
