@@ -23,6 +23,6 @@
   <button action="action:display.curvedrawer"/>
   <button action="action:display.backgroundimage"/>
   <filler/>
-  <button action="action:idv.stopload"/>
+ <!-- <button action="action:idv.stopload"/> -->
   <!-- <button action="action:exit"/> -->
 </panel>

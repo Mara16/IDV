@@ -37,7 +37,7 @@ import java.rmi.RemoteException;
 
 
 import javax.swing.*;
-
+import javax.swing.border.EtchedBorder;
 
 
 /**
@@ -124,6 +124,13 @@ public class NavigatedDisplayToolBar extends JToolBar {
         //        JButton button = GuiUtils.getImageButton(path,getClass(),2,2);
         button.setToolTipText(toolTip);
         add(button);
+        add(GuiUtils.filler(1,3));
+        button.setBorder(BorderFactory.createBevelBorder(0));
+
+        // this adds space between each button
+        JComponent filler = GuiUtils.filler(8, 3);
+        add(filler);
+
         return button;
     }
 
@@ -134,27 +141,15 @@ public class NavigatedDisplayToolBar extends JToolBar {
     private void makeToolBar() {
         JButton button;
 
-        button = makeButton("/auxdata/ui/icons/magnifier_zoom_in.png", "Zoom in");
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                navDisplay.zoom(ZOOM_FACTOR);
-            }
-        });
-
-        // zoom out button
-        button = makeButton("/auxdata/ui/icons/magnifier_zoom_out.png", "Zoom out");
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                navDisplay.zoom(1.0 / (double) ZOOM_FACTOR);
-            }
-        });
-
-        // reset button
-        button = makeButton("/auxdata/ui/icons/house.png",
-                            "Reset Display Projection");
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
+        // reset/house button
+        button = makeButton("/auxdata/ui/icons/summer_home.png",
+                "Reset Display Projection");
+        button.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                try
+                {
                     navDisplay.resetScaleTranslate();
                 } catch (VisADException ve) {
                     ve.printStackTrace();
@@ -164,10 +159,27 @@ public class NavigatedDisplayToolBar extends JToolBar {
             }
         });
 
-        //        addSeparator();
+        // zoom in magnifier buton
+        button = makeButton("/auxdata/ui/icons/zoom_in.png", "Zoom in");
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                navDisplay.zoom(ZOOM_FACTOR);
+            }
+        });
+
+        // zoom out magnifier button
+        button = makeButton("/auxdata/ui/icons/zoom_out.png", "Zoom out");
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                navDisplay.zoom(1.0 / (double) ZOOM_FACTOR);
+            }
+        });
+
+
+        //  addSeparator();
 
         // translate left
-        button = makeButton("/auxdata/ui/icons/arrow_left.png", "Translate left");
+        button = makeButton("/auxdata/ui/icons/left_arrow.png", "Translate left");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 navDisplay.translate(TRANSLATE_FACTOR, 0.0);
@@ -176,7 +188,7 @@ public class NavigatedDisplayToolBar extends JToolBar {
 
 
         // translate right
-        button = makeButton("/auxdata/ui/icons/arrow_right.png",
+        button = makeButton("/auxdata/ui/icons/right_arrow.png",
                             "Translate right");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -186,7 +198,7 @@ public class NavigatedDisplayToolBar extends JToolBar {
 
 
         // translate up
-        button = makeButton("/auxdata/ui/icons/arrow_up.png", "Translate up");
+        button = makeButton("/auxdata/ui/icons/up_arrow.png", "Translate up");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 navDisplay.translate(0.0, -TRANSLATE_FACTOR);
@@ -194,14 +206,14 @@ public class NavigatedDisplayToolBar extends JToolBar {
         });
 
         // translate down
-        button = makeButton("/auxdata/ui/icons/arrow_down.png", "Translate down");
+        button = makeButton("/auxdata/ui/icons/down_arrow.png", "Translate down");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 navDisplay.translate(0.0, TRANSLATE_FACTOR);
             }
         });
 
-        //        setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
 
 
     }

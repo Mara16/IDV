@@ -1380,7 +1380,7 @@ Since this is confusing and needs more work lets remove this for now
     </control>
 
 
-  <control
+  <!--control
      id="notecontrol"
      categories="none"
      class="ucar.unidata.idv.control.NoteControl"
@@ -1388,7 +1388,17 @@ Since this is confusing and needs more work lets remove this for now
      icon="/auxdata/ui/icons/Text16.gif"
      label="Text Note"
      displaycategory="General"
-     properties="windowVisible=true;expandedInTabs=true;showInTabs=false"/>
+     properties="windowVisible=true;expandedInTabs=true;showInTabs=false"/-->
+
+  <control
+          id="notecontrol"
+          categories="none"
+          class="ucar.unidata.idv.control.TextDisplayControl"
+          canstandalone="true"
+          icon="/auxdata/ui/icons/Text16.gif"
+          label="Text Note"
+          displaycategory="General"
+          properties="windowVisible=true;expandedInTabs=true;showInTabs=false;showFronts=true"/>
 
   <control
      id="locationcontrol"

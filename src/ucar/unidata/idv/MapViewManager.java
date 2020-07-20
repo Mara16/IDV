@@ -1763,7 +1763,7 @@ public class MapViewManager extends NavigatedViewManager {
      */
     protected void initToolBars() {
         if (isDisplay3D()) {
-            addToolBar(doMakeViewPointToolBar(JToolBar.VERTICAL),
+            addToolBar(doMakeViewPointToolBar(JToolBar.HORIZONTAL),
                        "perspective", "Viewpoint toolbar");
         }
         super.initToolBars();

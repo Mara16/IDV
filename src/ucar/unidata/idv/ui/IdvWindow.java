@@ -161,7 +161,7 @@ public class IdvWindow extends MultiFrame {
      * @param title The window title
      * @param theIdv The IDV
      * @param isAMainWindow Is this a main window
-     */
+
     public IdvWindow(String title, IntegratedDataViewer theIdv,
                      boolean isAMainWindow) {
         super(title);
@@ -206,6 +206,59 @@ public class IdvWindow extends MultiFrame {
         lastX += 50;
         //        lastY += 50;
     }
+     */
+
+    /*
+    * Attempting to make the window full screen without losing the toolbars (media and navigation).
+    * As well as removing the functionality of the minimize/maximize/exit buttons.
+    */
+
+    public IdvWindow(String title, IntegratedDataViewer theIdv,
+                     boolean isAMainWindow) {
+        super(title);
+        if (uniqueId == null) {
+            uniqueId = Misc.getUniqueId();
+        }
+
+        // if macosx, try to add the OSX full screen mode widget
+        if ((GuiUtils.isMac())
+                && (theIdv.getProperty("mac.fullscreen.enable",
+                Boolean.FALSE))) {
+            enableFullScreenMode(this.getWindow());
+        }
+
+        allWindows.add(this);
+        if (isAMainWindow) {
+            //            Misc.printStack("new window", 5,null);
+            mainWindows.add(this);
+        }
+        this.idv           = theIdv;
+        this.isAMainWindow = isAMainWindow;
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        final WindowAdapter[] wa = { null };
+        addWindowListener(wa[0] = new WindowAdapter() {
+
+            public void windowIconified(WindowEvent we) {
+                IdvWindow.super.getFrame().setState(JFrame.NORMAL);
+            }
+
+            public void windowActivated(WindowEvent e) {
+                lastActiveWindow = IdvWindow.this;
+            }
+        });
+        LogUtil.registerWindow(getWindow());
+        if (lastX > 500) {
+            lastX = 10;
+            lastY = 10;
+        }
+        setLocation(lastX, lastY);
+        lastX += 50;
+        IdvWindow.super.getFrame().setResizable(false);
+        IdvWindow.super.getFrame().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //        lastY += 50;
+    }
+
 
 
     /**

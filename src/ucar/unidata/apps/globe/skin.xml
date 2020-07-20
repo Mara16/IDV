@@ -11,7 +11,7 @@
         <button label="Exit" action="action:exit" place="East"/>
         </panel>
         <idv.view  place="Center" class="ucar.unidata.idv.MapViewManager" properties="use3D=false;"/>
-        <idv.statusbar place="South"/>
+        <!-- <idv.statusbar place="South"/> -->
       </panel>
   </ui>
 </skin>

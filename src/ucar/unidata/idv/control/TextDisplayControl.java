@@ -2,17 +2,17 @@
  * Copyright 1997-2020 Unidata Program Center/University Corporation for
  * Atmospheric Research, P.O. Box 3000, Boulder, CO 80307,
  * support@unidata.ucar.edu.
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or (at
  * your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
@@ -53,7 +53,7 @@ import ucar.unidata.util.TwoFacedObject;
 import ucar.unidata.xml.XmlUtil;
 
 
-
+import ucar.visad.display.CompositeDisplayable;
 import visad.*;
 
 
@@ -132,11 +132,11 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
 
     /** Preferred dimension for the editor pane */
     public static final Dimension EDITOR_PREFERRRED_SIZE =
-        new Dimension(100, DEFAULT_HEIGHT);
+            new Dimension(100, DEFAULT_HEIGHT);
 
     /** Preferred dimension for the scroll pane */
     public static final Dimension SCROLLPANE_PREFERRRED_SIZE =
-        new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+            new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
     /**
      *  With a loud gagging sound...
@@ -201,8 +201,9 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
     /** text field for url display/entry */
     private JTextField urlField = new JTextField();
 
+    CompositeDisplayable displayHolder;
 
-
+    private JLabel sideLegendReadout;
     /**
      * Default constructor; does nothing.  Heavy work done in init().
      */
@@ -232,8 +233,11 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
             setFieldUrl(filename);
             checkHistory();
         } else {
-            if ( !setData(dataChoice)) {
-                return false;
+            if (dataChoice == null || !setData(dataChoice)) {
+                displayHolder = new CompositeDisplayable();
+                displayHolder.setUseTimesInAnimation(getUseTimesInAnimation());
+                addDisplayable(displayHolder);
+                return true;
             }
 
             /**
@@ -244,6 +248,9 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
             filename = dataChoice.getStringId();
             goToUrl(filename);
         }
+        displayHolder = new CompositeDisplayable();
+        displayHolder.setUseTimesInAnimation(getUseTimesInAnimation());
+        addDisplayable(displayHolder);
         return true;
     }
 
@@ -302,8 +309,8 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
          */
         public void paint(Graphics g) {
             g.setColor((color == null)
-                       ? Color.black
-                       : color);
+                    ? Color.black
+                    : color);
             if (stroke == null) {
                 stroke = new BasicStroke(width);
             }
@@ -436,10 +443,10 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
         });
 
         fBtn = GuiUtils.getImageButton(
-            "/ucar/unidata/idv/control/images/Forward16.gif", getClass());
+                "/ucar/unidata/idv/control/images/Forward16.gif", getClass());
         fBtn.setToolTipText("Forward");
         bBtn = GuiUtils.getImageButton(
-            "/ucar/unidata/idv/control/images/Back16.gif", getClass());
+                "/ucar/unidata/idv/control/images/Back16.gif", getClass());
         bBtn.setToolTipText("Back");
         checkHistory();
 
@@ -473,8 +480,8 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
         colorBox = new JComboBox(colorList);
 
         JPanel drawingPanel =
-            GuiUtils.hflow(Misc.newList(new JLabel("Width: "), glyphWidthBox,
-                                        new JLabel("Color: "), colorBox));
+                GuiUtils.hflow(Misc.newList(new JLabel("Width: "), glyphWidthBox,
+                        new JLabel("Color: "), colorBox));
 
         boolean doJScroller = false;
         editor = new MyEditorPane();
@@ -496,8 +503,8 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
 
         if (doJScroller) {
             jscroller = new JScrollPane(
-                editor, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                    editor, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 
 
@@ -510,8 +517,8 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
         JButton goBtn = GuiUtils.makeButton("Go:", this, "reload");
 
         JButton reloadBtn =
-            GuiUtils.getImageButton(
-                "/ucar/unidata/idv/control/images/Refresh16.gif", getClass());
+                GuiUtils.getImageButton(
+                        "/ucar/unidata/idv/control/images/Refresh16.gif", getClass());
         reloadBtn.setToolTipText("Reload page");
         reloadBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
@@ -520,8 +527,8 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
         });
 
         JButton viewSrcBtn =
-            GuiUtils.getImageButton(
-                "/ucar/unidata/idv/control/images/Source16.gif", getClass());
+                GuiUtils.getImageButton(
+                        "/ucar/unidata/idv/control/images/Source16.gif", getClass());
         viewSrcBtn.setToolTipText("View source");
         viewSrcBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
@@ -532,9 +539,9 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
 
         JPanel historyPanel = GuiUtils.hbox(Misc.newList(bBtn, fBtn));
         JPanel urlPanel = GuiUtils.hbox(goBtn, urlField, reloadBtn,
-                                        viewSrcBtn);
+                viewSrcBtn);
         JPanel controls = GuiUtils.hbox(Misc.newList(historyPanel,
-                              new JLabel("  "), urlPanel));
+                new JLabel("  "), urlPanel));
         if (shouldBeDrawing()) {
             controls = GuiUtils.vbox(controls, GuiUtils.left(drawingPanel));
         }
@@ -621,7 +628,7 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
         }
         if (currentGlyph == null) {
             currentGlyph = new PolyGlyph(getGlyphLineWidth(),
-                                         getGlyphColor());
+                    getGlyphColor());
             glyphs.add(currentGlyph);
         }
         currentGlyph.addPoint(e.getX(), e.getY());
@@ -681,9 +688,9 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
     private void viewSource() {
         JTextArea t = new JTextArea(editor.getText());
         JScrollPane sp =
-            new JScrollPane(
-                t, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                new JScrollPane(
+                        t, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         sp.setPreferredSize(new Dimension(400, 500));
         final JFrame f   = new JFrame("File: " + filename);
         JButton      btn = new JButton("Close");
@@ -713,15 +720,15 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
     public void print(Element elem, String tab) {
         AttributeSet attrs = elem.getAttributes();
         System.err.println(
-            tab + "Tag: " + attrs.getAttribute(StyleConstants.NameAttribute));
+                tab + "Tag: " + attrs.getAttribute(StyleConstants.NameAttribute));
         for (Enumeration names = attrs.getAttributeNames();
-                names.hasMoreElements(); ) {
+             names.hasMoreElements(); ) {
             Object name = names.nextElement();
             if (name.equals(StyleConstants.NameAttribute)) {
                 continue;
             }
             System.err.println("  " + tab + "" + name + " ="
-                               + attrs.getAttribute(name));
+                    + attrs.getAttribute(name));
         }
         System.err.println(tab + "children:");
         for (int i = 0; i < elem.getElementCount(); i++) {
@@ -739,7 +746,7 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
     boolean hasEndTag(Element elem) {
         AttributeSet attrs = elem.getAttributes();
         for (Enumeration names = attrs.getAttributeNames();
-                names.hasMoreElements(); ) {
+             names.hasMoreElements(); ) {
             Object name = names.nextElement();
             if (name.toString().equals("endtag")) {
                 return true;
@@ -780,7 +787,7 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
                     public View create(Element elem) {
 
                         Object o = elem.getAttributes().getAttribute(
-                                       StyleConstants.NameAttribute);
+                                StyleConstants.NameAttribute);
                         if (o.toString().equals(TAG_VIEW)) {
                             return new ViewWrapper(elem);
                         }
@@ -899,10 +906,10 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
      */
     protected Component doMakeMainButtonPanel() {
         Component removeControl = doMakeRemoveControl("Remove this "
-                                      + getDisplayName());
+                + getDisplayName());
         mouseOverLabel.setBorder(new FineLineBorder(BevelBorder.LOWERED));
         JPanel buttonPanel = GuiUtils.centerRight(mouseOverLabel,
-                                 removeControl);
+                removeControl);
         return GuiUtils.inset(buttonPanel, 2);
     }
 
@@ -938,10 +945,10 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
                 }
                 nameValue = java.net.URLDecoder.decode(nameValue, "UTF-8");
                 action =
-                    StringUtil.replace(action,
-                                       "%"
-                                       + nameValue.substring(0, idx).trim()
-                                       + "%", nameValue.substring(idx + 1));
+                        StringUtil.replace(action,
+                                "%"
+                                        + nameValue.substring(0, idx).trim()
+                                        + "%", nameValue.substring(idx + 1));
             }
         } catch (java.io.UnsupportedEncodingException uee) {
             throw new ucar.unidata.util.WrapperException(uee);
@@ -978,8 +985,8 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
             }
         } else if (e.getEventType() == HyperlinkEvent.EventType.ENTERED) {
             String desc =
-                StringUtil.replace(StringUtil.replace(e.getDescription(),
-                    "idv:", ""), "idv.", "");
+                    StringUtil.replace(StringUtil.replace(e.getDescription(),
+                            "idv:", ""), "idv.", "");
             //With a loud gagging sound
             lastTimeSettingMouseOverLabel = System.currentTimeMillis();
             mouseOverLabel.setText(desc);
@@ -1119,10 +1126,10 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
                     File         parent = dir.getParentFile();
 
                     sb.append("<html><body><h2>Index of: " + dir
-                              + "</h2><hr>\n");
+                            + "</h2><hr>\n");
                     if (parent != null) {
                         sb.append("<a href=\"file:" + parent
-                                  + "\">Up to higher level directory</a><p>");
+                                + "\">Up to higher level directory</a><p>");
                     }
 
                     sb.append("<table>");
@@ -1130,7 +1137,7 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
                         java.util.Arrays.sort(files, new Comparator() {
                             public int compare(Object o1, Object o2) {
                                 return o1.toString().toLowerCase().compareTo(
-                                    o2.toString().toLowerCase());
+                                        o2.toString().toLowerCase());
                             }
                         });
                         boolean didone = false;
@@ -1140,17 +1147,17 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
                             }
                             if ( !didone) {
                                 sb.append(
-                                    "<tr><td><b>Directories</b></td></tr>\n");
+                                        "<tr><td><b>Directories</b></td></tr>\n");
                             }
                             didone = true;
 
                             sb.append(
-                                "<tr  valign=\"bottom\"><td>&nbsp;&nbsp;&nbsp;"
-                                + "<" + TAG_INTERNALIMAGE
-                                + " src=\"/auxdata/ui/icons/Folder.gif\"> "
-                                + "<a href=\"file:" + files[i] + "\">"
-                                + IOUtil.getFileTail(files[i].toString())
-                                + "</a></td><td></td></tr>\n");
+                                    "<tr  valign=\"bottom\"><td>&nbsp;&nbsp;&nbsp;"
+                                            + "<" + TAG_INTERNALIMAGE
+                                            + " src=\"/auxdata/ui/icons/Folder.gif\"> "
+                                            + "<a href=\"file:" + files[i] + "\">"
+                                            + IOUtil.getFileTail(files[i].toString())
+                                            + "</a></td><td></td></tr>\n");
                         }
                         didone = false;
                         for (int i = 0; i < files.length; i++) {
@@ -1169,13 +1176,13 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
                                 lenStr = (int) (len / 1000) + " KB";
                             }
                             sb.append(
-                                "<tr valign=\"bottom\"><td>&nbsp;&nbsp;&nbsp;"
-                                + "<" + TAG_INTERNALIMAGE
-                                + " src=\"/auxdata/ui/icons/File.gif\"> "
-                                + "<a href=\"file:" + files[i] + "\">"
-                                + IOUtil.getFileTail(files[i].toString())
-                                + "</a></td><td align=\"right\"><b>" + lenStr
-                                + "</b></td></tr>\n");
+                                    "<tr valign=\"bottom\"><td>&nbsp;&nbsp;&nbsp;"
+                                            + "<" + TAG_INTERNALIMAGE
+                                            + " src=\"/auxdata/ui/icons/File.gif\"> "
+                                            + "<a href=\"file:" + files[i] + "\">"
+                                            + IOUtil.getFileTail(files[i].toString())
+                                            + "</a></td><td align=\"right\"><b>" + lenStr
+                                            + "</b></td></tr>\n");
                         }
                     }
                     sb.append("</table></body></html>");
@@ -1202,6 +1209,13 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
         }
     }
 
+    public String getFilename(){
+        return filename;
+    }
+
+    public void setFilename(String filename){
+        this.filename = filename;
+    }
     /**
      * Dores the given path represent a file system dir.
      *
@@ -1243,7 +1257,7 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
      * @return  empty string
      */
     public String getDisplayName() {
-        return "";
+        return "Text Display";
     }
 
     /**
@@ -1469,13 +1483,13 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
                 Object name = names.nextElement();
             }
             String action =
-                (String) (formAttr.getAttribute(HTML.Attribute.ACTION));
+                    (String) (formAttr.getAttribute(HTML.Attribute.ACTION));
             if (action == null) {
                 formAttr =
-                    (AttributeSet) formAttr.getAttribute(HTML.Tag.FORM);
+                        (AttributeSet) formAttr.getAttribute(HTML.Tag.FORM);
                 if (formAttr != null) {
                     action =
-                        (String) formAttr.getAttribute(HTML.Attribute.ACTION);
+                            (String) formAttr.getAttribute(HTML.Attribute.ACTION);
                     names = formAttr.getAttributeNames();
                     while (names.hasMoreElements()) {
                         Object name = names.nextElement();
@@ -1543,8 +1557,8 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
 
 
             ViewManager viewManager = getControlContext().getViewManager(
-                                          new ViewDescriptor(viewName),
-                                          false, properties.toString());
+                    new ViewDescriptor(viewName),
+                    false, properties.toString());
             addViewManager(viewManager);
             return viewManager;
         }
@@ -1629,7 +1643,7 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
             }
             if (displayName == null) {
                 errorLabel =
-                    new JLabel("Error: No \"display\" attribute given");
+                        new JLabel("Error: No \"display\" attribute given");
                 return null;
             }
             if (dataSourceName == null) {
@@ -1638,21 +1652,21 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
             }
             if (paramName == null) {
                 errorLabel =
-                    new JLabel("Error: No \"param\" attribute given");
+                        new JLabel("Error: No \"param\" attribute given");
                 return null;
             }
 
             properties.append("makeWindow=false;");
 
             display = (DisplayControlImpl) getControlContext().createDisplay(
-                dataSourceName, paramName, displayName,
-                properties.toString(), false);
+                    dataSourceName, paramName, displayName,
+                    properties.toString(), false);
             if (display != null) {
                 addDisplayControl(display);
             } else {
                 errorLabel =
-                    new JLabel("Error: Failed to create display of type: "
-                               + displayName);
+                        new JLabel("Error: Failed to create display of type: "
+                                + displayName);
             }
             return display;
 
@@ -2045,5 +2059,21 @@ public class TextDisplayControl extends DisplayControlImpl implements HyperlinkL
         }
     }
 
+    public boolean getShowSideLegend() {
+        return true;
+    }
+
+    protected JComponent getExtraLegendComponent(int legendType) {
+        JComponent parentComp = super.getExtraLegendComponent(legendType);
+        if (legendType == BOTTOM_LEGEND) {
+            return parentComp;
+        }
+        if (sideLegendReadout == null) {
+            sideLegendReadout = new JLabel("<html> <br></html>");
+        }
+
+        return GuiUtils.vbox(parentComp, sideLegendReadout,
+                this.editor);
+    }
 
 }

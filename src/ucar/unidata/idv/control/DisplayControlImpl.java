@@ -52,23 +52,8 @@ import ucar.unidata.ui.DndImageButton;
 import ucar.unidata.ui.FontSelector;
 import ucar.unidata.ui.Help;
 import ucar.unidata.ui.ImageUtils;
-import ucar.unidata.util.ColorTable;
-import ucar.unidata.util.ContourInfo;
-import ucar.unidata.util.FileManager;
-import ucar.unidata.util.GuiUtils;
-import ucar.unidata.util.IOUtil;
+import ucar.unidata.util.*;
 import ucar.unidata.geoloc.LatLonRect;
-import ucar.unidata.util.LogUtil;
-import ucar.unidata.util.Misc;
-import ucar.unidata.util.Msg;
-import ucar.unidata.util.ObjectListener;
-import ucar.unidata.util.PropertyValue;
-import ucar.unidata.util.Prototypable;
-import ucar.unidata.util.Range;
-import ucar.unidata.util.Removable;
-import ucar.unidata.util.StringUtil;
-import ucar.unidata.util.Trace;
-import ucar.unidata.util.TwoFacedObject;
 import ucar.unidata.view.geoloc.GlobeDisplay;
 import ucar.unidata.view.geoloc.MapProjectionDisplay;
 import ucar.unidata.view.geoloc.NavigatedDisplay;
@@ -4149,11 +4134,22 @@ public abstract class DisplayControlImpl extends DisplayControlBase implements D
      */
     public JComponent getLegendButtons(int legendType) {
 
+        //if (legendType == SIDE_LEGEND) {
+        //    if (sideLegendButtonPanel == null) {
+                //                DndImageButton dndBtn = new DndImageButton(this, "control");
+        //        sideLegendButtonPanel = GuiUtils.hbox(  /*dndBtn,*/
+        //            makeLockButton(), makeRemoveButton(), 2);
+                //                dndBtn.setToolTipText("Click to drag-and-drop");
+        //        sideLegendButtonPanel.setBackground(null);
+        //    }
+         //   return sideLegendButtonPanel;
+       // }
+
         if (legendType == SIDE_LEGEND) {
             if (sideLegendButtonPanel == null) {
-                //                DndImageButton dndBtn = new DndImageButton(this, "control");
-                sideLegendButtonPanel = GuiUtils.hbox(  /*dndBtn,*/
-                    makeLockButton(), makeRemoveButton(), 2);
+                DndImageButton dndBtn = new DndImageButton(this, "control");
+                sideLegendButtonPanel = GuiUtils.hbox(LayoutUtil.toList(new Object[]{makeLockButton()}) );/*dndBtn,*/
+                //   makeLockButton(), dndBtn,  2);
                 //                dndBtn.setToolTipText("Click to drag-and-drop");
                 sideLegendButtonPanel.setBackground(null);
             }

@@ -251,12 +251,10 @@ public class ViewManager extends SharableImpl implements ActionListener,
     public static final String PREF_SHAREVIEWS = "View.ShareViews";
 
     /** Show the bottom legend */
-    public static final String PREF_SHOWANIMATIONBOXES =
-        "View.ShowAnimationBoxes";
+    public static final String PREF_SHOWANIMATIONBOXES = "View.ShowAnimationBoxes";
 
     /** Show the bottom legend */
-    public static final String PREF_SHOWBOTTOMLEGEND =
-        "View.ShowBottomLegend";
+    public static final String PREF_SHOWBOTTOMLEGEND = "View.ShowBottomLegend";
 
     /** Preference for showing cursor readout */
     public static final String PREF_SHOWCURSOR = "View.ShowCursor";
@@ -274,12 +272,10 @@ public class ViewManager extends SharableImpl implements ActionListener,
     public static final String PREF_SHOWTOOLBAR = "View.ShowToolBar";
 
     /** Preference for  showing the wireframe box */
-    public static final String PREF_SHOWTRANSECTSCALES =
-        "View.ShowTransectScales";
+    public static final String PREF_SHOWTRANSECTSCALES = "View.ShowTransectScales";
 
     /** are the toolbars floatable */
-    public static final String PREF_TOOLBARSFLOATABLE =
-        "idv.viewmanager.toolbars.floatable";
+    public static final String PREF_TOOLBARSFLOATABLE = "idv.viewmanager.toolbars.floatable";
 
     /** For the visibility of the top compenent */
     public static final String PREF_TOPBAR_VISIBLE = "View.TopBarVisible";
@@ -291,8 +287,7 @@ public class ViewManager extends SharableImpl implements ActionListener,
     public static final String PREF_WIREFRAME = "View.Wireframe";
 
     /** Property id for component resizing */
-    public static final String PROP_COMPONENT_RESIZED =
-        "View.ComponentResized";
+    public static final String PROP_COMPONENT_RESIZED = "View.ComponentResized";
 
     /** Xml tag for the color pair */
     public static final String TAG_COLORPAIR = "colorpair";
@@ -1111,13 +1106,15 @@ public class ViewManager extends SharableImpl implements ActionListener,
                                new Insets(0, 0, 0, 4));
         }
 
-        JPanel leftNav = GuiUtils.topCenter(GuiUtils.doLayout(toolbars, 1,
-                             GuiUtils.WT_N, GuiUtils.WT_N), null);
+        //JPanel leftNav = GuiUtils.topCenter(GuiUtils.doLayout(toolbars, 1,
+        //                    GuiUtils.WT_N, GuiUtils.WT_N), null);
+        JPanel leftNav = GuiUtils.leftCenterRight(GuiUtils.doLayout(toolbars, 3,
+                GuiUtils.WT_N, GuiUtils.WT_N), GuiUtils.filler(), topRight);
 
         // Component topBar = GuiUtils.leftCenterRight(GuiUtils.bottom(menuBar),
         topBar = GuiUtils.leftCenterRight(GuiUtils.bottom(menuBar),
                                           GuiUtils.bottom(nameLabel),
-                                          topRight);
+                                          null);
         centerPanel = GuiUtils.topCenter(topBar, contentsWrapper);
         topBar.setVisible(getTopBarVisible());
 
@@ -1185,7 +1182,8 @@ public class ViewManager extends SharableImpl implements ActionListener,
             centerPanelWrapper = GuiUtils.center(centerPanel);
         }
 
-        fullContents = GuiUtils.leftCenter(leftNav, centerPanelWrapper);
+        fullContents = GuiUtils.centerBottom(centerPanelWrapper, leftNav);
+        // fullContents = GuiUtils.leftCenter(leftNav, centerPanelWrapper);
         fullContents.setBorder(getContentsBorder());
         fillLegends();
         //setFullScreen();
@@ -3391,7 +3389,9 @@ public class ViewManager extends SharableImpl implements ActionListener,
      * @param d The default size
      */
     public void setSize(Dimension d) {
-        defaultSize = d;
+        //defaultSize = d;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        defaultSize = screenSize;
     }
 
     /**
@@ -3911,7 +3911,7 @@ public class ViewManager extends SharableImpl implements ActionListener,
      * @return Should show side legend
      */
     public boolean getShowSideLegend() {
-        return false; //getStore().get(PREF_SHOWSIDELEGEND, true);
+        return getStore().get(PREF_SHOWSIDELEGEND, true);
     }
 
     /**
@@ -7144,11 +7144,10 @@ public class ViewManager extends SharableImpl implements ActionListener,
             menuBar    = new JPanel();
         }
 
-        JPanel top =
-            GuiUtils.leftRight(GuiUtils.hbox(GuiUtils.bottom(cancelBtn1),
-                                             menuBar), rightPanel);
-        JPanel bottom = GuiUtils.left(GuiUtils.hbox(cancelBtn2,
-                            new JLabel(" ")));
+        JPanel top = GuiUtils.leftRight(GuiUtils.hbox(GuiUtils.bottom(cancelBtn1), menuBar), rightPanel);
+
+        JPanel bottom = GuiUtils.left(GuiUtils.hbox(cancelBtn2, new JLabel(" ")));
+
         JPanel contents = GuiUtils.topCenterBottom(top, navComponent, bottom);
 
         fullScreenWindow = new JFrame();
