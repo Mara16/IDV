@@ -130,6 +130,7 @@ public class NavigatedDisplayToolBar extends JToolBar {
         // this adds space between each button
         JComponent filler = GuiUtils.filler(8, 3);
         add(filler);
+        add(GuiUtils.filler());
 
         return button;
     }
@@ -167,14 +168,32 @@ public class NavigatedDisplayToolBar extends JToolBar {
             }
         });
 
-        // zoom out magnifier button
+        // zoom out button
         button = makeButton("/auxdata/ui/icons/zoom_out.png", "Zoom out");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                navDisplay.zoom(1.0 / (double) ZOOM_FACTOR);
+                navDisplay.zoom(ZOOM_FACTOR);
             }
         });
 
+
+        // reset button
+        button = makeButton("/auxdata/ui/icons/summer_home.png",
+                            "Reset Display Projection");
+        button.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                try
+                {
+                    navDisplay.resetScaleTranslate();
+                } catch (VisADException ve) {
+                    ve.printStackTrace();
+                } catch (RemoteException re) {
+                    re.printStackTrace();
+                }
+            }
+        });
 
         //  addSeparator();
 
