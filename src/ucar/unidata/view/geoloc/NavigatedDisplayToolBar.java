@@ -178,22 +178,22 @@ public class NavigatedDisplayToolBar extends JToolBar {
 
 
         // reset button
-        button = makeButton("/auxdata/ui/icons/summer_home.png",
-                            "Reset Display Projection");
-        button.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                try
-                {
-                    navDisplay.resetScaleTranslate();
-                } catch (VisADException ve) {
-                    ve.printStackTrace();
-                } catch (RemoteException re) {
-                    re.printStackTrace();
-                }
-            }
-        });
+        //button = makeButton("/auxdata/ui/icons/summer_home.png",
+                            //"Reset Display Projection");
+        //button.addActionListener(new ActionListener()
+        //{
+        //public void actionPerformed(ActionEvent e)
+         //   {
+          //      try
+          //      {
+          //          navDisplay.resetScaleTranslate();
+          //      } catch (VisADException ve) {
+          //          ve.printStackTrace();
+           //     } catch (RemoteException re) {
+           //         re.printStackTrace();
+           //     }
+         //   }
+        //});
 
         //  addSeparator();
 
