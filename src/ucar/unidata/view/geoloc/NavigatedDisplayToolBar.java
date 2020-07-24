@@ -160,7 +160,7 @@ public class NavigatedDisplayToolBar extends JToolBar {
             }
         });
 
-        // zoom in magnifier buton
+        // zoom in button
         button = makeButton("/auxdata/ui/icons/zoom_in.png", "Zoom in");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -168,32 +168,13 @@ public class NavigatedDisplayToolBar extends JToolBar {
             }
         });
 
-        // zoom out button
+        // zoom out magnifier buton
         button = makeButton("/auxdata/ui/icons/zoom_out.png", "Zoom out");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                navDisplay.zoom(ZOOM_FACTOR);
+                navDisplay.zoom(1.0 / (double)ZOOM_FACTOR);
             }
         });
-
-
-        // reset button
-        //button = makeButton("/auxdata/ui/icons/summer_home.png",
-                            //"Reset Display Projection");
-        //button.addActionListener(new ActionListener()
-        //{
-        //public void actionPerformed(ActionEvent e)
-         //   {
-          //      try
-          //      {
-          //          navDisplay.resetScaleTranslate();
-          //      } catch (VisADException ve) {
-          //          ve.printStackTrace();
-           //     } catch (RemoteException re) {
-           //         re.printStackTrace();
-           //     }
-         //   }
-        //});
 
         //  addSeparator();
 
